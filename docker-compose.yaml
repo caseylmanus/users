@@ -1,0 +1,20 @@
+version: '3.2'
+
+services:
+  db:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: app
+      MYSQL_PASSWORD: appsecret
+    volumes:
+    - ./sql:/docker-entrypoint-initdb.d
+    ports:
+      - "3309:3306"
+  web:
+    image: golang
+    volumes:
+    - .:/go/src/github.com/caseylmanus/users
+    ports:
+      - "8080:8080"
+    command: "sh -c 'go get -u github.com/golang/dep/... && cd /go/src/github.com/caseylmanus/users && dep ensure && cd cmd/users && go run *.go'"

@@ -1,0 +1,7 @@
+[mysql]
+  dbname  = "planet"
+  host    = "localhost"
+  port    = 3309
+  user    = "app"
+  pass    = "appsecret"
+  sslmode = "false"
