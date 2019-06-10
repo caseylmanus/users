@@ -24,6 +24,7 @@ you and error and you can change the local port binding to a different port.
 
 - I used a familiar package `https://github.com/volatiletech/sqlboiler` to handle persistance against the mysql database
 - I used chi for http routing and logrus, which are very common packages
+- The code in `dbmodels` is generated
  
 
 
