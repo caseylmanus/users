@@ -45,6 +45,10 @@ func (handler *restHandler) postUser(w http.ResponseWriter, r *http.Request) {
 		writeErr(w, err, http.StatusBadRequest)
 		return
 	}
+	if err := validateUser(user); err != nil {
+		writeErr(w, err, http.StatusBadRequest)
+		return
+	}
 	if err := user.Insert(r.Context(), handler.db, boil.Infer()); err != nil {
 		writeErr(w, err, http.StatusInternalServerError)
 	}
@@ -57,6 +61,10 @@ func (handler *restHandler) putUser(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	err := json.NewDecoder(r.Body).Decode(&user)
 	if err != nil || user.UserID != id {
+		writeErr(w, err, http.StatusBadRequest)
+		return
+	}
+	if err := validateUser(user); err != nil {
 		writeErr(w, err, http.StatusBadRequest)
 		return
 	}
